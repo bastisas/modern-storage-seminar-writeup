@@ -19,6 +19,26 @@
 The write-up must be \underline{at least 4 pages long}, with  \underline{a maximum of 6 pages}.
 The summary section should be approximately \underline{two pages} in length and include the key elements from the paper. It should resemble an abstract but provide more detailed information.
 
+- modern consensus protocols  increase througput by eliminating bottlenecks, lowering efficiency in the process.
+    - they increase performance by utilizing resources, that would otherwise be idle.
+        - how they do that: Leaderless, shifting most of the work
+- first test
+    - setup
+    - pure througput analysis
+- efficiency metric
+    - cpu usage of first test
+    - new metric 
+    - results
+- cloud-native systems share resources
+    - don't use dedicated resources
+    - use multiple independent instances on the same machine
+    - why efficiency even matters
+- second test
+    - setup
+    - results
+    - new metric predicted relative performance of protocols in shared environment
+- call for stopping development of protocols optimized for dedicated resources and start development of protocols specifically meant for cloud usage
+
 \section{Related Work}
 The related work section must incorporate \underline{at least one related paper} that has not been addressed in the document.
 This section should compare the primary idea of the paper with those of the related works. A good starting point is to explore papers that cite the given paper.
@@ -30,9 +50,23 @@ The critique section should be \underline{at least one page long}.
 
 \subsection{Strong Points}
 % TODO
+- Metric design
+
+- stretched on 2:
+Focus on shifting research away from outdated technologies towards already relevant and growing topics
+- good highlighting of current problems    
+    - very direct criticism of current methods
+- good highlighting of promising directions
+
 
 \subsection{Weak Points}
 % TODO
+- very limited scope: only suggestion for further research
+    - stays theoretical even in tests
+
+- repetitive
+
+- 
 
 \section{Suggestions for Improvement}
 Propose ways to \textbf{enhance the paper's core idea} or outline \textbf{future extensions} that are not covered in the paper.

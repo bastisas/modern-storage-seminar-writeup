@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.29)  30 DEC 2025 11:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.12.29)  3 JAN 2026 15:00
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -847,10 +847,10 @@ LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
 (Font)              scaled to size 6.6pt on input line 19.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 28.
+(Font)              scaled to size 9.0pt on input line 48.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 46.
- [1.1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}] (./main.aux)
+(Font)              scaled to size 8.0pt on input line 80.
+ [1.1{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}] [2.2] (./main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
@@ -859,18 +859,18 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: DCC5A56AB0A6E147B5BAD489F142AB00;789.
  ) 
 Here is how much of TeX's memory you used:
- 20076 strings out of 467538
- 319780 string characters out of 5419551
- 759854 words of memory out of 5000000
+ 20086 strings out of 467538
+ 320008 string characters out of 5419551
+ 763854 words of memory out of 5000000
  48382 multiletter control sequences out of 15000+600000
- 712390 words of font info for 155 fonts, out of 8000000 for 9000
+ 713209 words of font info for 161 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  90i,11n,131p,1079b,529s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/libertine/LinLibertineTB.pfb>
-Output written on main.pdf (1 page, 261955 bytes).
+Output written on main.pdf (2 pages, 265264 bytes).
 PDF statistics:
- 66 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
- 8 named destinations out of 1000 (max. 500000)
+ 70 PDF objects out of 1000 (max. 8388607)
+ 54 compressed objects within 1 object stream
+ 9 named destinations out of 1000 (max. 500000)
  43069 words of extra memory for PDF output out of 51595 (max. 10000000)
 
