@@ -114,28 +114,44 @@ This section should compare the primary idea of the paper with those of the rela
 The length of this section should be \underline{about half a page}.
 
 \section{Critique}
-Critique the paper by identifying \textbf{three strong points} and \textbf{three weaknesses}.
-The critique section should be \underline{at least one page long}.
+%Critique the paper by identifying \textbf{three strong points} and \textbf{three weaknesses}.
+%The critique section should be \underline{at least one page long}.
 
 \subsection{Strong Points}
 % TODO
-- Metric design
 
-- stretched on 2:
-Focus on shifting research away from outdated technologies towards already relevant and growing topics
-- good highlighting of current problems    
-    - very direct criticism of current methods
-- good highlighting of promising directions
+%Metric design -able to predict performance - widely applicable
+The Metric that the paper puts forward is very well designed. Its use is not predefined neither in the unit of performance nor in the unit of resource usage. 
+This does of course makes it resource specific and results harder to compare but as a tradeoff also more precise, since the specific environmental characteristics get factored in.
+It is, however, usable in every case where efficiency in the usage of a resource needs to be compared.
+The accuracy of the comparison is shown off by the tests the paper does. In the first test where Multi-Paxos gets outperformed by Epaxos, its efficiency metric shows that is has about double the efficiency.
+In the second test, Multi-Paxos achieves about double the performance of EPaxos, indicating that the metric is able to predict performance accurately.
 
+The Paper also does an excellent job at highlighting the problem in current research. It uses large descriptions of the concepts mixed with short interludes on the details of specific protocols and their implementations.
+The ability of EPaxos to use all resources allocated while decreasing efficiency and the disadvantage this brings in the cloud is explained very well.
+Current methods are criticised very directly and called out for ignoring resource efficiency in their work. They do this to such an extent that it reaches the border to insult, staying on the side of criticism by just a margin.
+The core idea of the paper is impossible to miss.
+
+The paper uses illustration very well to explain its topics. The two graphics of Multi-Paxos' bad load balancing and of task packing in a cloud scenario help understand the concepts well.%change "graphics" to different word
+The graphs never show changing values over time, instead only mostly constant values are represented. 
+Only mentioning these numbers in text, however, would greatly impact the understandability of the paper, which is why the inclusion of these graphs and the selection of which to include, is very important and done well.
 
 \subsection{Weak Points}
 % TODO
-- very limited scope: only showcase of wrong approach
-    - stays theoretical even in tests
+The paper only shows the problem with current research but does not meaningfully suggest ways to do better. 
+The only section where they do propose topics for future research is at the end of the conclusion. Half of that section, however, is very generic advice like "Use the increasing core count of modern server processors".
+They themselves do not attempt to design a protocol more efficient than Multi-Paxos. This limits the scope of the paper to complaining about peers and introducing a metric with which they can do so. 
+Even in the tests they do run, they compare two protocols on an undescriptive key-value store, missing even the chance to compare Multi-Paxos and Raft or to use real world usen cases and datasets.
 
-- repetitive
+On top of a limited scope, the paper repeats itself many times. 
+The abstract introduces the topic, the long introduction says the same again, just longer, the main part features everything with detail, and the conclusion then says it all again.
+This can be confusing on a first read. Some repetition in the form of an abstract or a conclusion is to be expected in academic writing. The degree to which it is present in this paper however, is too much.
+The repetition leads to the actual content of the paper being much shorter than the paper itself.
 
-- very few suggestions for direction of future work other than "more multicore" or "emerging technologies"
+The paper boasts two main ideas: The shift of research towards increasing efficiency and the metric to measure efficiency. The part the metric plays in achieving the other goal is not illustrated understandably.
+The metric is supposed to help identifying bottlenecks in replication protocols. 
+How it does that is not stated at all since the authors themselves use it to compare relative efficiency of protocols and predict their performance in resource shared environments, not to identify bottlenecks within a protocol.
+Even if it is possible to use the metric for this purpose, it is not visible in plain sight, since the point of the metric is to aggregate its throughput and resource utilization values on the entire system.
 
 \section{Suggestions for Improvement}
 Propose ways to \textbf{enhance the paper's core idea} or outline \textbf{future extensions} that are not covered in the paper.
