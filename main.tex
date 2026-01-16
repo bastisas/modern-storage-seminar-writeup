@@ -19,12 +19,12 @@
 %The write-up must be \underline{at least 4 pages long}, with  \underline{a maximum of 6 pages}.
 %The summary section should be approximately \underline{two pages} in length and include the key elements from the paper. It should resemble an abstract but provide more detailed information.
 
-%- modern consensus protocols  increase througput by eliminating bottlenecks, lowering efficiency in the process.
+%- modern consensus protocols  increase throughput by eliminating bottlenecks, lowering efficiency in the process.
 %    - they increase performance by utilizing resources, that would otherwise be idle.
 %        - how they do that: Leaderless, shifting most of the work
 %- first test
 %    - setup
-%    - pure througput analysis
+%    - pure throughput analysis
 %- efficiency metric
 %    - cpu usage of first test
 %    - new metric 
@@ -48,7 +48,7 @@ Resource sharing also becomes more relevant as server processors' core counts ar
 The public cloud model furhter encourages resource sharing with its cost structure.
 Given the high usage of replicated state machines in distributed systems, improving the throughput of replication protocols has been a problem with extensive focus during the last decade.
 
-Both of the standard implementations of replication protocols (Mulit-Paxos and Raft) follow a Leader-Follower structure.
+Both of the standard implementations of replication protocols (Multi-Paxos and Raft) follow a Leader-Follower structure.
 All of the newly developed protocols take a similar approach to improving performance.
 They first identify a bottleneck, usually at the leader, after which it is eliminated by shifting work away from the leader towards the followers.
 Systems like EPaxos do this, by eliminating the leader entirely and replacing in by the possibility of every follower to become an opportunistic leader. This apporoach is called leaderless consensus.
@@ -72,13 +72,13 @@ If we observe the CPU usage of EPaxos in the previous test, we notice that all r
 Multi-Paxos on the other hand only fully utilizes its CPU on the leader node, while the followers only use about 25\% of their CPU.
 While indicating worse load balancing, it also means that Multi-Paxos can achieve roughly 80\% of the throughput of EPaxos with 40\% of its CPU.
 
-To better understand resource usage compared to performance the paper introduces a new measure: througput-per-unit-of-constraining-resource-utilization.
+To better understand resource usage compared to performance the paper introduces a new measure: throughput-per-unit-of-constraining-resource-utilization.
 The measure can be applied to any resource such as CPU, network usage or storage IOPS. In our case the CPU is the constraining resource, so we observe it instead of other resources in order to yield the most useful data possible.
 One could also consider using performance per dollar as a metric. 
 This, however is not best suited for scientific analysis with the goal of performance increase, since cost factors in all of the resources at once, hiding the effect a single resource has on performance.
 
 We now revisit the efficiency of EPaxos and Multi-Paxos with the new metric.
-It is calculated by measuring the througput of the system and dividing it by the sum of the CPU usages on every node, every time instant.
+It is calculated by measuring the throughput of the system and dividing it by the sum of the CPU usages on every node, every time instant.
 In our case the unit of the measurement is ops/s/CPU\%.
 After measurement this metric shows that Multi-Paxos is about twice as efficient considering the resources consumed, compared to EPaxos being more efficient considering the resources allocated.
 This makes sence, since EPaxos has to handle conflicts when they arise leading to higher resource requirements, while only yielding a small performance increase. Multi-Paxos on the other hand is comparatively simple.
@@ -91,7 +91,7 @@ As an example, the paper considers a five-node cluster. One can use task-packing
 This lets each node of the cluster experience a similar amount of CPU load, negating Multi-Paxos' bad load-balancing characteristics.
 
 The paper demonstrates this by emulating such an environment with an AWS EC2 cluster using five m5a.2xlarge VMs with 8 vCPUs and 32 GiB of RAM. Multi-Paxos is deployed as five instances with the before mentioned task-packing.
-Similar to the first test, througput of an in-memory key-value store and CPU utilization will be measured and the cluster is saturated using up to 100 clients per VM.
+Similar to the first test, throughput of an in-memory key-value store and CPU utilization will be measured and the cluster is saturated using up to 100 clients per VM.
 Each Multi-Paxos instance can achieve roughly 30 kops/s of throughput, while all CPUs on all nodes are fully utilized.
 If the same experiment is repeated with EPaxos, each instance produces only 15 kops/s of throughput, while all CPUs on all nodes are fully utilized.
 The aggregated throughput of all Multi-Paxos instances is almost twice the aggregated throughput of all EPaxos instances, confirming that a more efficient protocol has a significant advantage in a shared environment with proper task-packing.
@@ -109,9 +109,9 @@ The main focus of development should lie on increasing resource efficiency.
 
 
 \section{Related Work}
-The related work section must incorporate \underline{at least one related paper} that has not been addressed in the document.
-This section should compare the primary idea of the paper with those of the related works. A good starting point is to explore papers that cite the given paper.
-The length of this section should be \underline{about half a page}.
+%The related work section must incorporate \underline{at least one related paper} that has not been addressed in the document.
+%This section should compare the primary idea of the paper with those of the related works. A good starting point is to explore papers that cite the given paper.
+%The length of this section should be \underline{about half a page}.
 
 %https://discovery.ucl.ac.uk/id/eprint/10181480/1/quepaxa.pdf?utm_source=chatgpt.com
 %https://arxiv.org/pdf/2404.04183
@@ -122,14 +122,34 @@ The length of this section should be \underline{about half a page}.
 
 %main takeaway for at least these two papers from partially the same authors semms to be EPaxos' latency characteristics.
 
+There are many protocols that have been developed since this one was published, that focus on cloud consensus. Two of them are QuePaxa[1] and RACS[2]. %ADD reference
+In this section their ideas will be presented and since they both cite this paper, their applications of this papers' proposals will be analysed.
+
+QuePaxa aims not to increase throughput by large amounts, but to increase resilience.
+QuePaxa should perform comparatively to Multi-Paxos and Raft under normal network conditions. Under bad network conditions like a DoS-attack or misconfigurations, QuePaxa aims to retain much more throughput than Multi-Paxos or Raft.
+It achieves this by reworking the leader change logic from relying on conservative timeouts to ensure liveness, to relying on short hedging delays and by implementing a randomized asynchronous core.
+
+In its performance tests QuePaxa neither shows nor mentions CPU usage. In fact it does not mention resource efficiency in general at all.
+The test setups are not mentioned in high detail. However, since the test shown in figure 7 has Epaxos outperforming Multi-Paxos by over 20\% it is safe to assume that instances were deployed outside of a resource shared environment.
+In other words, they were deployed just the way this paper criticises.
+
+On the other hand QuePaxa's focus is not on raw throughput, but rather on throughput versus latency. Latency being a key performance metric not addressed in this paper.
+QuePaxa does not take the advice from this paper to also test in resource shared environments and to measure cpu usage. 
+It does, however, also not only focus on increasing throughput leaving efficiency behind as it measures performance relative to latency.
+
+RACS is an even more modern consensus protocol with partially the same authors as QuePaxa. Its aim is to address the key issue of protocols like QuePaxa being hard to integrate into the existing cloud software stack, without delivering less performance.
+RACS is even more clear with the focus on latency versus throughput.
+Since both protocols have very similar performance to Multi-Paxos and Both still have a Leader, one can assume that their efficiency must be close to that of Multi-Paxos. Because of the added complexity of the protocols however, it is probably not as high.
+
+Both papers cite this paper. They do so when evaluating the latency of EPaxos. While they do not acknowledge its advice on testing they do take the advice to design consensus protocols specifically for cloud usage. 
+The main takeaway from this paper for these authors seems to be the latency characteristics of EPaxos.
+
+
 \section{Critique}
 %Critique the paper by identifying \textbf{three strong points} and \textbf{three weaknesses}.
 %The critique section should be \underline{at least one page long}.
 
 \subsection{Strong Points}
-% TODO
-
-%Metric design -able to predict performance - widely applicable
 The Metric that the paper puts forward is very well designed. Its use is not predefined neither in the unit of performance nor in the unit of resource usage. 
 This does of course makes it resource specific and results harder to compare but as a tradeoff also more precise, since the specific environmental characteristics get factored in.
 It is, however, usable in every case where efficiency in the usage of a resource needs to be compared.
@@ -146,7 +166,6 @@ The graphs never show changing values over time, instead only mostly constant va
 Only mentioning these numbers in text, however, would greatly impact the understandability of the paper, which is why the inclusion of these graphs and the selection of which to include, is very important and done well.
 
 \subsection{Weak Points}
-% TODO
 The paper only shows the problem with current research but does not meaningfully suggest ways to do better. 
 The only section where they do propose topics for future research is at the end of the conclusion. Half of that section, however, is very generic advice like "Use the increasing core count of modern server processors".
 They themselves do not attempt to design a protocol more efficient than Multi-Paxos. This limits the scope of the paper to complaining about peers and introducing a metric with which they can do so. 
