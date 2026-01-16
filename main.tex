@@ -113,6 +113,15 @@ The related work section must incorporate \underline{at least one related paper}
 This section should compare the primary idea of the paper with those of the related works. A good starting point is to explore papers that cite the given paper.
 The length of this section should be \underline{about half a page}.
 
+%https://discovery.ucl.ac.uk/id/eprint/10181480/1/quepaxa.pdf?utm_source=chatgpt.com
+%https://arxiv.org/pdf/2404.04183
+
+%RACS does not give cpu usage data and seems to test its intances in isolation not with mutliple multi-paxos instances 
+
+%they focus on latency which my paper does not mention.
+
+%main takeaway for at least these two papers from partially the same authors semms to be EPaxos' latency characteristics.
+
 \section{Critique}
 %Critique the paper by identifying \textbf{three strong points} and \textbf{three weaknesses}.
 %The critique section should be \underline{at least one page long}.
@@ -143,7 +152,7 @@ The only section where they do propose topics for future research is at the end 
 They themselves do not attempt to design a protocol more efficient than Multi-Paxos. This limits the scope of the paper to complaining about peers and introducing a metric with which they can do so. 
 Even in the tests they do run, they compare two protocols on an undescriptive key-value store, missing even the chance to compare Multi-Paxos and Raft or to use real world usen cases and datasets.
 
-On top of a limited scope, the paper repeats itself many times. 
+On top of a limited scope, the paper repeats itself many times. % anpassen weil eine introduction normal ist.
 The abstract introduces the topic, the long introduction says the same again, just longer, the main part features everything with detail, and the conclusion then says it all again.
 This can be confusing on a first read. Some repetition in the form of an abstract or a conclusion is to be expected in academic writing. The degree to which it is present in this paper however, is too much.
 The repetition leads to the actual content of the paper being much shorter than the paper itself.
