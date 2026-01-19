@@ -161,7 +161,7 @@ The ability of EPaxos to use all resources allocated while decreasing efficiency
 Current methods are criticised very directly and called out for ignoring resource efficiency in their work. They do this to such an extent that it reaches the border to insult, staying on the side of criticism by just a margin.
 The core idea of the paper is impossible to miss.
 
-The paper uses illustration very well to explain its topics. The two graphics of Multi-Paxos' bad load balancing and of task packing in a cloud scenario help understand the concepts well.%change "graphics" to different word
+The paper uses illustration very well to explain its topics. The two figures of Multi-Paxos' bad load balancing and of task packing in a cloud scenario help understand the concepts well.
 The graphs never show changing values over time, instead only mostly constant values are represented. 
 Only mentioning these numbers in text, however, would greatly impact the understandability of the paper, which is why the inclusion of these graphs and the selection of which to include, is very important and done well.
 
@@ -182,12 +182,25 @@ How it does that is not stated at all since the authors themselves use it to com
 Even if it is possible to use the metric for this purpose, it is not visible in plain sight, since the point of the metric is to aggregate its throughput and resource utilization values on the entire system.
 
 \section{Suggestions for Improvement}
-Propose ways to \textbf{enhance the paper's core idea} or outline \textbf{future extensions} that are not covered in the paper.
-It is also acceptable to discuss \textbf{potential use cases} for the proposed idea or system that the paper does not mention.
-Alternatively, consider suggesting \textbf{implementation approaches} to validate the proposed scheme and either prove or disprove its effectiveness (if you believe it may not be effective).
-This section should be \underline{at least half a page long}.
-% TODO
+%Propose ways to \textbf{enhance the paper's core idea} or outline \textbf{future extensions} that are not covered in the paper.
+%It is also acceptable to discuss \textbf{potential use cases} for the proposed idea or system that the paper does not mention.
+%Alternatively, consider suggesting \textbf{implementation approaches} to validate the proposed scheme and either prove or disprove its effectiveness (if you believe it may not be effective).
+%This section should be \underline{at least half a page long}.
 
+%Core idea: efficiency is key to performance in resource shared environments.
+%- some way of using the metric outside of replication protocols:
+%- Gather data: Big chart with Multi-Paxos at 100\% and all other protocols at their relative efficiency
 
+In order to get a baseline for how efficient current protocols are, research could be done on a large number of protocols, measuring their relative efficiency.
+Since the measure is resource-specific absolute values on efficiency cannot be given. Thus one group needs to gather absolute data on the same system or setup, which makes them comparable relative to each other.
+Multi-Paxos would be a sensible baseline as it is widely used and already quite efficient. Raft could also be considred but it is already quite similar to Multi-Paxos in its efficiency.
+One could then measure the efficiency of a large number of comparable consensus protocols in both local and wide area networks.
+The resulting understanding of the relative efficiency of the protocols could help identify practises that lead to high efficiency.
+Using the same test setup with a newly developed protocol would then make you able to easily compare its efficiency to that of other protocols.
+In other words, now that there is a standard measure for efficiency in consensus protocols, one can also benefit from a standardised test to quickly identify efficiency and in extent performance on the cloud.
+
+There is also the possiblity to extend the use of the measure to latency. One could normalize the throughput of QuePaxa's and RACS' throughput to latency graphs, to get a reading of how fast the system responds at a specific efficiency.
+Since efficiency might differ at different throughput levels and efficiency dictates performance in a resource shared environment, low throughput per instance on a shared resource could lead to lower latency in the entire system.
+There might also be even more elegant ways to incorporate resource efficiency into latency improvement, which should researched.
 
 \end{document}
