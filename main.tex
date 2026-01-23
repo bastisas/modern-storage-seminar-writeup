@@ -16,31 +16,6 @@
 \maketitle
 
 \section{Summary}
-%The write-up must be \underline{at least 4 pages long}, with  \underline{a maximum of 6 pages}.
-%The summary section should be approximately \underline{two pages} in length and include the key elements from the paper. It should resemble an abstract but provide more detailed information.
-
-%- modern consensus protocols  increase throughput by eliminating bottlenecks, lowering efficiency in the process.
-%    - they increase performance by utilizing resources, that would otherwise be idle.
-%        - how they do that: Leaderless, shifting most of the work
-%- first test
-%    - setup
-%    - pure throughput analysis
-%- efficiency metric
-%    - cpu usage of first test
-%    - new metric 
-%    - results
-%- cloud-native systems share resources
-%    - don't use dedicated resources
-%    - use multiple independent instances on the same machine
-%    - why efficiency even matters
-%- second test
-%    - setup
-%    - results
-%    - new metric predicted relative performance of protocols in shared environment
-%- call for stopping development of protocols optimized for dedicated resources and start development of protocols specifically meant for cloud usage
-
-
-
 State machines are deployed on a wide variety of systems ranging from dedicated hardware deployments in an on-premise data center to fully managed public cloud solutions.
 When an on-premise cluster has lots of unused hardware, new systems will be deployed in their own isolated environments.
 Once there is no unused hardware left, the only way to deploy more systems without expanding the datacenter is to use resource sharing.
@@ -87,7 +62,7 @@ On a dedicated server, resources that are allocated but not used are wasted. Thi
 In a cloud-native environment, resources are shared, such that resources left unused by one instance can be used by another, eliminating the need for perfect load balancing on a protocol level.
 Additionally, resource abundancy is heavily constrained by a budget leading to the need of extracting as much performance from a fixed pool of resources.
 This makes it possible for Multi-Paxos to achieve higher aggregated throughput despite having worse protocol level load balancing than EPaxos.
-As an example, the paper considers a five-node cluster. One can use task-packing on five Multi-Paxos instances, so that each node of the cluster hosts one leader and a follower from the other 4 instances.
+As an example, the paper considers a five-node cluster. One can use task-packing on five Multi-Paxos instances, so that each node of the cluster hosts one leader and one follower from each of the other 4 instances.
 This lets each node of the cluster experience a similar amount of CPU load, negating Multi-Paxos' bad load-balancing characteristics.
 
 The paper demonstrates this by emulating such an environment with an AWS EC2 cluster using five m5a.2xlarge VMs with 8 vCPUs and 32 GiB of RAM. Multi-Paxos is deployed as five instances with the before mentioned task-packing.
@@ -109,24 +84,11 @@ The main focus of development should lie on increasing resource efficiency.
 
 
 \section{Related Work}
-%The related work section must incorporate \underline{at least one related paper} that has not been addressed in the document.
-%This section should compare the primary idea of the paper with those of the related works. A good starting point is to explore papers that cite the given paper.
-%The length of this section should be \underline{about half a page}.
-
-%https://discovery.ucl.ac.uk/id/eprint/10181480/1/quepaxa.pdf?utm_source=chatgpt.com
-%https://arxiv.org/pdf/2404.04183
-
-%RACS does not give cpu usage data and seems to test its intances in isolation not with mutliple multi-paxos instances 
-
-%they focus on latency which my paper does not mention.
-
-%main takeaway for at least these two papers from partially the same authors semms to be EPaxos' latency characteristics.
-
-There are many protocols that have been developed since this one was published, that focus on cloud consensus. Two of them are QuePaxa[1] and RACS[2]. %ADD reference
+There are many protocols that have been developed since this one was published, that focus on cloud consensus. Two of them are QuePaxa\citep{Tennage:2023} and RACS\citep{Tennage:2025}.
 In this section their ideas will be presented and since they both cite this paper, their applications of this papers' proposals will be analysed.
 
 QuePaxa aims not to increase throughput by large amounts, but to increase resilience.
-QuePaxa should perform comparatively to Multi-Paxos and Raft under normal network conditions. Under bad network conditions like a DoS-attack or misconfigurations, QuePaxa aims to retain much more throughput than Multi-Paxos or Raft.
+QuePaxa should perform comparatively to Multi-Paxos and Raft under normal network conditions. Under bad network conditions like misconfigurations or a DoS-attack, QuePaxa aims to retain much more throughput than Multi-Paxos or Raft.
 It achieves this by reworking the leader change logic from relying on conservative timeouts to ensure liveness, to relying on short hedging delays and by implementing a randomized asynchronous core.
 
 In its performance tests QuePaxa neither shows nor mentions CPU usage. In fact it does not mention resource efficiency in general at all.
@@ -135,7 +97,7 @@ In other words, they were deployed just the way this paper criticises.
 
 On the other hand QuePaxa's focus is not on raw throughput, but rather on throughput versus latency. Latency being a key performance metric not addressed in this paper.
 QuePaxa does not take the advice from this paper to also test in resource shared environments and to measure cpu usage. 
-It does, however, also not only focus on increasing throughput leaving efficiency behind as it measures performance relative to latency.
+It does, however, also not only focus on increasing throughput and ignoring efficiency  as it measures performance relative to latency.
 
 RACS is an even more modern consensus protocol with partially the same authors as QuePaxa. Its aim is to address the key issue of protocols like QuePaxa being hard to integrate into the existing cloud software stack, without delivering less performance.
 RACS is even more clear with the focus on latency versus throughput.
@@ -161,17 +123,17 @@ The ability of EPaxos to use all resources allocated while decreasing efficiency
 Current methods are criticised very directly and called out for ignoring resource efficiency in their work. They do this to such an extent that it reaches the border to insult, staying on the side of criticism by just a margin.
 The core idea of the paper is impossible to miss.
 
-The paper uses illustration very well to explain its topics. The two figures of Multi-Paxos' bad load balancing and of task packing in a cloud scenario help understand the concepts well.
-The graphs never show changing values over time, instead only mostly constant values are represented. 
-Only mentioning these numbers in text, however, would greatly impact the understandability of the paper, which is why the inclusion of these graphs and the selection of which to include, is very important and done well.
+The paper uses illustrations very well to explain its topics. The two figures of Multi-Paxos' bad load balancing and of task packing in a cloud scenario help understand the concepts well.
+The graphs never show changing values over time, instead only mostly flat grahps are represented. 
+Only mentioning these numbers in text, however, would negatively impact the understandability of the paper, which is why the inclusion of these graphs and the selection of which to include, is very important and done well.
 
 \subsection{Weak Points}
 The paper only shows the problem with current research but does not meaningfully suggest ways to do better. 
 The only section where they do propose topics for future research is at the end of the conclusion. Half of that section, however, is very generic advice like "Use the increasing core count of modern server processors".
 They themselves do not attempt to design a protocol more efficient than Multi-Paxos. This limits the scope of the paper to complaining about peers and introducing a metric with which they can do so. 
-Even in the tests they do run, they compare two protocols on an undescriptive key-value store, missing even the chance to compare Multi-Paxos and Raft or to use real world usen cases and datasets.
+Even in the tests they do run, they compare two protocols on an undescriptive key-value store, missing even the chance to compare Multi-Paxos and Raft or to use real world use cases and datasets.
 
-On top of a limited scope, the paper repeats itself many times. % anpassen weil eine introduction normal ist.
+On top of a limited scope, the paper repeats itself many times.
 The abstract introduces the topic, the long introduction says the same again, just longer, the main part features everything with detail, and the conclusion then says it all again.
 This can be confusing on a first read. Some repetition in the form of an abstract or a conclusion is to be expected in academic writing. The degree to which it is present in this paper however, is too much.
 The repetition leads to the actual content of the paper being much shorter than the paper itself.
@@ -182,15 +144,6 @@ How it does that is not stated at all since the authors themselves use it to com
 Even if it is possible to use the metric for this purpose, it is not visible in plain sight, since the point of the metric is to aggregate its throughput and resource utilization values on the entire system.
 
 \section{Suggestions for Improvement}
-%Propose ways to \textbf{enhance the paper's core idea} or outline \textbf{future extensions} that are not covered in the paper.
-%It is also acceptable to discuss \textbf{potential use cases} for the proposed idea or system that the paper does not mention.
-%Alternatively, consider suggesting \textbf{implementation approaches} to validate the proposed scheme and either prove or disprove its effectiveness (if you believe it may not be effective).
-%This section should be \underline{at least half a page long}.
-
-%Core idea: efficiency is key to performance in resource shared environments.
-%- some way of using the metric outside of replication protocols:
-%- Gather data: Big chart with Multi-Paxos at 100\% and all other protocols at their relative efficiency
-
 In order to get a baseline for how efficient current protocols are, research could be done on a large number of protocols, measuring their relative efficiency.
 Since the measure is resource-specific absolute values on efficiency cannot be given. Thus one group needs to gather absolute data on the same system or setup, which makes them comparable relative to each other.
 Multi-Paxos would be a sensible baseline as it is widely used and already quite efficient. Raft could also be considred but it is already quite similar to Multi-Paxos in its efficiency.
@@ -202,5 +155,20 @@ In other words, now that there is a standard measure for efficiency in consensus
 There is also the possiblity to extend the use of the measure to latency. One could normalize the throughput of QuePaxa's and RACS' throughput to latency graphs, to get a reading of how fast the system responds at a specific efficiency.
 Since efficiency might differ at different throughput levels and efficiency dictates performance in a resource shared environment, low throughput per instance on a shared resource could lead to lower latency in the entire system.
 There might also be even more elegant ways to incorporate resource efficiency into latency improvement, which should researched.
+
+\begin{thebibliography}{9}
+
+    \bibitem[1]{Tennage:2023}
+    P. Tennage, C. Basescu, L. Kokoris-Kogias, E. Syta, P. Jovanovic,
+    V. Estrada, and B. Ford, “QuePaxa: Escaping the tyranny of timeouts in
+    consensus”, Proceedings of the 29th Symposium on Operating Systems
+    Principles (SOSP), Oct. 2023. \url{https://doi.org/10.1145/3600006.3613150}
+
+    \bibitem[2]{Tennage:2025}
+    P. Tennage, A. Desjardins, L. Kokoris-Kogias, 
+    "RACS-SADL: Robust and Understandable Randomized Consensus in the Cloud", 
+    IEEE 18th International Conference on Cloud Computing (CLOUD)10.1109/CLOUD67622.2025.00044(362-373), Jul. 2025. \url{https://doi.org/10.1109/CLOUD67622.2025.00044}
+
+\end {thebibliography}
 
 \end{document}

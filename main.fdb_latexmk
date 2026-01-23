@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1768836301.46055 "/home/sebastian/Documents/ModernStorageSeminar/modern-storage-seminar-writeup/main.tex" "main.pdf" "main" 1768836301.85051 0
-  "/home/sebastian/Documents/ModernStorageSeminar/modern-storage-seminar-writeup/main.tex" 1768836301.31829 20081 d32074ecd6d1fd719157b58c5b7be1ed ""
+["pdflatex"] 1769176180.29497 "/home/sebastian/Documents/ModernStorageSeminar/modern-storage-seminar-writeup/main.tex" "main.pdf" "main" 1769176180.68968 0
+  "/home/sebastian/Documents/ModernStorageSeminar/modern-storage-seminar-writeup/main.tex" 1769176180.15611 18073 70b81dfa5ae341f8857d0965e321b67d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc" 1490131464 2921 8ca0eb0831f9bc5da080d3697cfe67bf ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1490131464 2933 9ad527ce78d7c5fa0a642dead095f172 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -140,9 +140,9 @@
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1767024643 3635655 83a455ad39a0097f643b187201b7e40e ""
   "/usr/local/texlive/2025/texmf.cnf" 1767024569.85396 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "acmart.cls" 1767089965.23484 96943 22aab88eb4450dc97aba90abe39b216c ""
-  "main.aux" 1768836301.81029 1029 fa22c1c09c5dfcd2771ecec8c0c08650 "pdflatex"
-  "main.out" 1768836301.81029 789 dcc5a56ab0a6e147b5bad489f142ab00 "pdflatex"
-  "main.tex" 1768836301.31829 20081 d32074ecd6d1fd719157b58c5b7be1ed ""
+  "main.aux" 1769176180.64611 1300 c392ac9210c3864571eb4071cff6d851 "pdflatex"
+  "main.out" 1769176180.64611 883 069c6fd4f2bbcf5883b043ca482535ab "pdflatex"
+  "main.tex" 1769176180.15611 18073 70b81dfa5ae341f8857d0965e321b67d ""
   (generated)
   "main.aux"
   "main.log"
