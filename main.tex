@@ -34,11 +34,12 @@ The goal of these optimizations is to use resources at the followers, that were 
 
 The paper runs a test, comparing Multi-Paxos to EPaxos, to confirm this.
 Both systems are delpoyed on five AWS EC2 m5a.large instances with 2 vCPUs and 8 GiB of RAM. The workload used is a 50\% write workload targeting an in-memory key-value store.
-Up to 90 concurrent clients are saturating the cluster in order to observe its maximum throughput. The workload for EPaxos has a conflict ratio of up to 10\%.
+Up to 90 concurrent clients are saturating the cluster in order to observe its maximum throughput.
 In this test EPaxos outperforms Multi-Paxos by about 20\%, which is consistent with the EPaxos paper.
 
 All original evaluations of newly developed protocols focus on the performance gained by utilizing more resources at the followers in fully dedicated deployments.
 Modern systems however, are increasingly deployed on the cloud, making these evaluations not suitable for predicting performance in such resource shared environments.
+This makes performance in the more common cloud deployment largely untested.
 On top of that the previously mentioned apporach to increasing performance by shifting work away from the leader has a major disadvantage.
 It creates complexity requiring expensive algorithms, reducing the resource efficiency of the system.
 
@@ -48,13 +49,14 @@ Multi-Paxos on the other hand only fully utilizes its CPU on the leader node, wh
 While indicating worse load balancing, it also means that Multi-Paxos can achieve roughly 80\% of the throughput of EPaxos with 40\% of its CPU.
 
 To better understand resource usage compared to performance the paper introduces a new measure: throughput-per-unit-of-constraining-resource-utilization.
+It normalizes performance on resource usage meaning that a protocol with a higher measurement generates more throughput at the same resource usage than a protocol with a lower measurement.
+It ignores load balancing and factores in only the resources actually used.
 The measure can be applied to any resource such as CPU, network usage or storage IOPS. In our case the CPU is the constraining resource, so we observe it instead of other resources in order to yield the most useful data possible.
 One could also consider using performance per dollar as a metric. 
 This, however is not best suited for scientific analysis with the goal of performance increase, since cost factors in all of the resources at once, hiding the effect a single resource has on performance.
-
-We now revisit the efficiency of EPaxos and Multi-Paxos with the new metric.
 It is calculated by measuring the throughput of the system and dividing it by the sum of the CPU usages on every node, every time instant.
 In our case the unit of the measurement is ops/s/CPU\%.
+We now revisit the efficiency of EPaxos and Multi-Paxos with the new metric.
 After measurement this metric shows that Multi-Paxos is about twice as efficient considering the resources consumed, compared to EPaxos being more efficient considering the resources allocated.
 This makes sence, since EPaxos has to handle conflicts when they arise leading to higher resource requirements, while only yielding a small performance increase. Multi-Paxos on the other hand is comparatively simple.
 
@@ -137,6 +139,9 @@ On top of a limited scope, the paper repeats itself many times.
 The abstract introduces the topic, the long introduction says the same again, just longer, the main part features everything with detail, and the conclusion then says it all again.
 This can be confusing on a first read. Some repetition in the form of an abstract or a conclusion is to be expected in academic writing. The degree to which it is present in this paper however, is too much.
 The repetition leads to the actual content of the paper being much shorter than the paper itself.
+
+The paper has a large focus on throughput. While occasionally mentioning it, latency is mostly ignored in this paper. Latency however, is one of the biggest focuses of other works and important to many applications.
+An application sensitive to latency would gain nothing when evaluating potential protocol choices on their throughput per COU\%. %CUT or COMPLETE
 
 The paper boasts two main ideas: The shift of research towards increasing efficiency and the metric to measure efficiency. The part the metric plays in achieving the other goal is not illustrated understandably.
 The metric is supposed to help identifying bottlenecks in replication protocols. 
