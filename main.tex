@@ -89,9 +89,11 @@ The main focus of development should lie on increasing resource efficiency.
 There are many protocols that have been developed since this one was published, that focus on cloud consensus. Two of them are QuePaxa\citep{Tennage:2023} and RACS\citep{Tennage:2025}.
 In this section their ideas will be presented and since they both cite this paper, their applications of this papers' proposals will be analysed.
 
-QuePaxa aims not to increase throughput by large amounts, but to increase resilience.
-QuePaxa should perform comparatively to Multi-Paxos and Raft under normal network conditions. Under bad network conditions like misconfigurations or a DoS-attack, QuePaxa aims to retain much more throughput than Multi-Paxos or Raft.
-It achieves this by reworking the leader change logic from relying on conservative timeouts to ensure liveness, to relying on short hedging delays and by implementing a randomized asynchronous core.
+QuePaxa and RACS aim not to increase throughput by large amounts, but to increase resilience.
+They should perform comparatively to Multi-Paxos and Raft under normal network conditions. Under bad network conditions like misconfigurations or a DoS-attack, they aim to retain much more throughput than Multi-Paxos or Raft.
+QuePaxa achieves this by reworking the leader change logic from relying on conservative timeouts to ensure liveness, to relying on short hedging delays and by implementing a randomized asynchronous core.
+RACS is an even more modern consensus protocol with partially the same authors as QuePaxa.
+RACS goes a step further and wants to have good performance in both good and bad network conditions, while being easy to integrate into an existing software stack by being similar to Raft.
 
 In its performance tests QuePaxa neither shows nor mentions CPU usage. In fact it does not mention resource efficiency in general at all.
 The test setups are not mentioned in high detail. However, since the test shown in figure 7 has Epaxos outperforming Multi-Paxos by over 20\% it is safe to assume that instances were deployed outside of a resource shared environment.
@@ -100,9 +102,7 @@ In other words, they were deployed just the way this paper criticises.
 On the other hand QuePaxa's focus is not on raw throughput, but rather on throughput versus latency. Latency being a key performance metric not addressed in this paper.
 QuePaxa does not take the advice from this paper to also test in resource shared environments and to measure cpu usage. 
 It does, however, also not only focus on increasing throughput and ignoring efficiency  as it measures performance relative to latency.
-
-RACS is an even more modern consensus protocol with partially the same authors as QuePaxa. Its aim is to address the key issue of protocols like QuePaxa being hard to integrate into the existing cloud software stack, without delivering less performance.
-RACS is even more clear with the focus on latency versus throughput.
+RACS is even more clear with the focus on latency versus throughput in its testing, also not showing a single efficiency graph.
 Since both protocols have very similar performance to Multi-Paxos and Both still have a Leader, one can assume that their efficiency must be close to that of Multi-Paxos. Because of the added complexity of the protocols however, it is probably not as high.
 
 Both papers cite this paper. They do so when evaluating the latency of EPaxos. While they do not acknowledge its advice on testing they do take the advice to design consensus protocols specifically for cloud usage. 
@@ -135,13 +135,9 @@ The only section where they do propose topics for future research is at the end 
 They themselves do not attempt to design a protocol more efficient than Multi-Paxos. This limits the scope of the paper to complaining about peers and introducing a metric with which they can do so. 
 Even in the tests they do run, they compare two protocols on an undescriptive key-value store, missing even the chance to compare Multi-Paxos and Raft or to use real world use cases and datasets.
 
-On top of a limited scope, the paper repeats itself many times.
-The abstract introduces the topic, the long introduction says the same again, just longer, the main part features everything with detail, and the conclusion then says it all again.
-This can be confusing on a first read. Some repetition in the form of an abstract or a conclusion is to be expected in academic writing. The degree to which it is present in this paper however, is too much.
-The repetition leads to the actual content of the paper being much shorter than the paper itself.
-
 The paper has a large focus on throughput. While occasionally mentioning it, latency is mostly ignored in this paper. Latency however, is one of the biggest focuses of other works and important to many applications.
-An application sensitive to latency would gain nothing when evaluating potential protocol choices on their throughput per COU\%. %CUT or COMPLETE
+An application sensitive to latency would gain nothing when evaluating potential protocol choices on their throughput per CPU\% alone. It might even perform worse compared to a less efficient protocol.
+If the measure is used to improve an existing protocol, only evaluating throughput might drastically increase latency without getting noticed leading to an overall worse protocol.
 
 The paper boasts two main ideas: The shift of research towards increasing efficiency and the metric to measure efficiency. The part the metric plays in achieving the other goal is not illustrated understandably.
 The metric is supposed to help identifying bottlenecks in replication protocols. 
